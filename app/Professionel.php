@@ -14,4 +14,7 @@ class Professionel extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function centres(){
+        return $this->hasMany('App\Centre','iduser','id');
+    }
 }

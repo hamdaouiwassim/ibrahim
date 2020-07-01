@@ -14,4 +14,7 @@ class Patient extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function reservations(){
+        return $this->hasMany('App\Reservation','idpatient','id');
+    }
 }

@@ -100,9 +100,8 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                             <div class="Appointment">
-                                <div class="book_btn d-none d-lg-block">
-                                    <a class="popup-with-form" href="#test-form">Make an Appointment</a>
-                                </div>
+                                    <a href="{{ route('login') }}" class="p-2 ml-3 btn btn-primary">login</a>
+                                    <a href="{{ route('register') }}" class="p-2 ml-3 btn btn-primary">register</a>
                             </div>
                         </div>
                         <div class="col-12">

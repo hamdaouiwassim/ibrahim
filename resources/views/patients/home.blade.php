@@ -3,19 +3,39 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+        <div class="col-md-12">
+            
+        <form class="row pt-5" action="{{ route('cherchercentre')}}" method="post">
+            @csrf
+                            <div class="form-group col-3">
+                                <input type="text" name="nomcentre" class="form-control" placeholder="Entrer un nom de centre ..." >
+                            </div>
+                            <div class="form-group col-3">
+                            <select class="form-control" name="type" class="form-control">
+                                <option value="">
+                                    Type centre ...
+                                </option>   
+                                <option >
+                                    Pharmacie
+                                </option>
+                                <option >
+                                    Hopitale
+                                </option>
+                                <option >
+                                    Cabinet Medicale
+                                </option>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            </select>
                         </div>
-                    @endif
+                        <div class="form-group col-3">
+                            <input type="text" name="region" class="form-control" placeholder="Entrer une region...">
+                        </div>
+                        <div class="form-group col-3">
+                            <input type="submit" value="Chercher" class="btn btn-success">
+                        </div>
 
-                    Dashboard patients
-                </div>
+                  </form>
+               
             </div>
         </div>
     </div>
