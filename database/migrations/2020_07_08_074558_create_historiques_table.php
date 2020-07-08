@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfessionelsTable extends Migration
+class CreateHistoriquesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateProfessionelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('professionels', function (Blueprint $table) {
+        Schema::create('historiques', function (Blueprint $table) {
             $table->id();
-            $table->integer('iduser');
-            $table->string('etat')->default('NON VALIDE');
+            $table->string("message");
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateProfessionelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('professionels');
+        Schema::dropIfExists('historiques');
     }
 }

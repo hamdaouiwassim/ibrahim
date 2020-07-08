@@ -20,7 +20,7 @@ class ReservationsController extends Controller
             $idsCentres[] = $c->id;
 
         }
-        $reservations = Reservation::whereIn('idcentre',$idsCentres)->get();
+        $reservations = Reservation::whereIn('idcentre',$idsCentres)->OrderBy('updated_at','DESC')->get();
         return view('professionels.reservations.liste')->with('reservations',$reservations);
     }
 
@@ -43,6 +43,16 @@ class ReservationsController extends Controller
     public function store(Request $request)
     {
         //
+        $Reservation = new Reservation();
+        $Reservation->idpatient = auth()->user()->patient->id;
+        $Reservation->idcentre = $request->input('idcentre');
+        $Reservation->detaille = $request->input('detaille');
+        $Reservation->date = $request->input('datereservation');
+        $Reservation->etat= "En Cours";
+        $Reservation->save();
+        return redirect()->back();
+
+        
     }
 
     /**
@@ -88,5 +98,18 @@ class ReservationsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function AccepterReservation($id){
+        $reservation = Reservation::find($id);
+        $reservation->etat = "Accepter";
+        $reservation->update();
+        return redirect()->back();
+    }
+    public function RefuserReservation($id){
+        $reservation = Reservation::find($id);
+        $reservation->etat = "Refuser";
+        $reservation->update();
+        return redirect()->back();
     }
 }

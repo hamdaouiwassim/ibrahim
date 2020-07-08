@@ -41,7 +41,7 @@ class CommentsController extends Controller
         $comment->idcentre = $request->input('idcentre');
         $comment->contenu = $request->input('contenu');
         $comment->save();
-        return redirect('/');
+        return redirect()->back();
         
         
     }

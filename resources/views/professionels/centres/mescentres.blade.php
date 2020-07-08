@@ -17,22 +17,30 @@
                         <th scope="col">#</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Ville</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @php
+                      $i = 1
+                      @endphp
                         @foreach($centres as $centre)
                       <tr>
-                        <th scope="row">1</th>
-                        <td>{{ $centre->nom }}</td>
-                        <td>{{ $centre->description  }}</td>
-                        <td>
-                            <a href="{{ route('ajouterHorraire', ['id' =>$centre->id]) }}" class="btn btn-primary">Ajouter Horraire</a>
-                            <a href="" class="btn btn-success">Modifier</a>
+                        <th scope="row">{{ $i }}</th>
+                        <td >{{ $centre->nom }}</td>
+                        <td >{{ $centre->description  }}</td>
+                        <td >{{ $centre->ville  }}</td>
+                        <td >
+                            <a href="{{ route('ajouterHorraire', ['id' =>$centre->id]) }}" class="btn btn-primary">Horraire</a>
+                        <a href="{{ route('ModifierCentre',['id'=>$centre->id])}}" class="btn btn-success">Modifier</a>
                             <a onclick="return confirm('Voulez-vous vraiment supprimee ?')" href="{{ route('supprimercentre', ['id' =>$centre->id]) }}" class="btn btn-danger">Supprimer centre</a>
-                            <a href="{{ route('ajoutercharge', ['id' =>$centre->id]) }}" class="btn btn-secondary">Ajouter Prise en charge</a>
+                            <a href="{{ route('ajoutercharge', ['id' =>$centre->id]) }}" class="mt-3 btn btn-warning">Prise en charge</a>
                         </td>
                       </tr>
+                      @php
+                      $i++
+                      @endphp
                       @endforeach
                    
                     </tbody>

@@ -22,17 +22,37 @@
                       </tr>
                     </thead>
                     <tbody>
+                        @php
+                            
+                          $i =1
+                        @endphp
                         @foreach($reservations as $reservation)
+                        @if ( $reservation->etat == "En Cours" )
                       <tr>
-                        <th scope="row">1</th>
+                        <th scope="row">{{ $i }}</th>
                         <td>{{ $reservation->patient->nom }}</td>
                         <td>{{ $reservation->centre->nom  }}</td>
                         <td >{{ $reservation->date  }} </td>
                         <td>   
-                            <a href="" class="btn btn-secondary">Accepter</a>
-                            <a href="" class="btn btn-danger">Refuser</a>
+                        <a href="{{ route('AccepterReservation',['id'=>$reservation->id]) }}" class="btn btn-success">Accepter</a>
+                        <a onclick="return confirm('Voulez-vous vraiment refusee cette demande de reservation ?')" href="{{ route('RefuserReservation',['id'=>$reservation->id]) }}" class="btn btn-danger">Refuser</a>
                          </td>
                       </tr>
+                      @elseif ( $reservation->etat == "Accepter" )
+                      <tr>
+                        <th scope="row">{{ $i }}</th>
+                        <td>{{ $reservation->patient->nom }}</td>
+                        <td>{{ $reservation->centre->nom  }}</td>
+                        <td >{{ $reservation->date  }} </td>
+                        <td> 
+                         <span class="text-success"> {{ $reservation->etat  }} </span> 
+                         </td>
+                      </tr>
+                      @endif
+                      @php
+                            
+                      $i++
+                    @endphp
                       @endforeach
                    
                     </tbody>

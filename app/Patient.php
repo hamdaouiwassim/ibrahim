@@ -12,7 +12,7 @@ class Patient extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','iduser','id');
     }
     public function reservations(){
         return $this->hasMany('App\Reservation','idpatient','id');

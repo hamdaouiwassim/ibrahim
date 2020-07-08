@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.pat')
 
 @section('content')
 <div class="container">
@@ -8,7 +8,10 @@
         <form class="row pt-5" action="{{ route('cherchercentre')}}" method="post">
             @csrf
                             <div class="form-group col-3">
-                                <input type="text" name="nomcentre" class="form-control" placeholder="Entrer un nom de centre ..." >
+                                <input type="text" name="ville" class="form-control" placeholder="Entrer une ville de centre ..." >
+                            </div>
+                            <div class="form-group col-3">
+                                <input type="text" name="region" class="form-control" placeholder="Entrer une region...">
                             </div>
                             <div class="form-group col-3">
                             <select class="form-control" name="type" class="form-control">
@@ -27,9 +30,7 @@
 
                             </select>
                         </div>
-                        <div class="form-group col-3">
-                            <input type="text" name="region" class="form-control" placeholder="Entrer une region...">
-                        </div>
+                        
                         <div class="form-group col-3">
                             <input type="submit" value="Chercher" class="btn btn-success">
                         </div>
