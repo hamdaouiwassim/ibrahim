@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/profile', function () {
+    return view('patients.profile');
+});
+
 
 Auth::routes();
-
+Route::get('/users', 'HomeController@users')->name('users');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/centre/ajouter', 'CentresController@create')->name('createCentre');
 Route::post('/user/centre/ajouter/db', 'CentresController@store')->name('ajouterCentreDB');
@@ -54,5 +58,9 @@ Route::get('/admin/centre/{id}/refuser', 'CentresController@RefuserCentre')->nam
 
 Route::get('/centre/reservation/{id}/accepter', 'ReservationsController@AccepterReservation')->name('AccepterReservation');
 Route::get('/centre/reservation/{id}/refuser', 'ReservationsController@RefuserReservation')->name('RefuserReservation');
+
+Route::get('/DropAllCentres','CentresController@DropAllCentres')->name('DropAllCentres');
+Route::get('/DropHorraire/{id}','CentresController@DropHorraire')->name('DropHorraire');
+Route::post('/ImageUpload','HomeController@ImageUpload')->name('ImageUpload');
 
 

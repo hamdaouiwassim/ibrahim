@@ -20,7 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="min-height:100vh;background-size:cover;background-image: url('{{ asset('images/admin1.jpg') }}')">
+<body style="min-height:100vh;background-size:cover;background-image: url('{{ asset('images/admin.jpg') }}')">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -50,7 +50,8 @@
                                 </li>
                             @endif
                         @else
-                           @if ( auth()->user()->avatar != null )<img src="{{asset('uploads')}}/{{ auth()->user()->avatar }}" width="30" height="30" style="border-radius: 50%">@endif
+                        
+                        @if ( auth()->user()->avatar != null )<img src="{{asset('uploads')}}/{{ auth()->user()->avatar }}" width="30" height="30" style="border-radius: 50%">@endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -99,37 +100,42 @@
 <div class="container pt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card p-3" style="opacity:  .9">
-   
-                <h1>  Centres Recements ajoutees</h1>
+            <div class="card" style="opacity:  .9">
+                <h1>  Liste des utilisateurs </h1>
               
                 <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nom</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Email
+
+                        </th>
+                        <th scope="col">Role</th>
+                       
                       </tr>
                     </thead>
                     <tbody>
                       @php
-                      $i=1   
+                      $i=1    
                       @endphp
-                        @foreach($centres as $centre)
+                        @foreach($users as $user)
+                        
                       <tr>
                       <th scope="row">{{ $i }}</th>
-                        <td>{{ $centre->nom }}</td>
-                        <td>{{ $centre->description  }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email  }}</td>
                         <td>
-                            <a href="{{ route('AccepterCentre', ['id' =>$centre->id]) }}" class="btn btn-primary">Accpter </a>
-                            <a href="{{ route('RefuserCentre',['id'=>$centre->id])}}" class="btn btn-danger">Refuser </a>
+
+                            {{ $user->roles }}
                            
                         </td>
+                        
                       </tr>
                       @php
                       $i++   
                       @endphp
+                      
                       @endforeach
                    
                     </tbody>
@@ -142,6 +148,5 @@
         </div>
     </div>
 </div>
-    </div>
-</body>
-</html>
+</div>
+</body></html>

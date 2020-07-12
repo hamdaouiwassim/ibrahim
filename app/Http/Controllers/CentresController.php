@@ -8,6 +8,7 @@ use App\Centre;
 use App\Reservation;
 use App\User;
 use App\Historique;
+use App\Horraire;
 class CentresController extends Controller
 {
     /**
@@ -118,6 +119,14 @@ class CentresController extends Controller
         //
         $centre = Centre::find($id);
         $centre->delete();
+        $reservations = Reservation::where('idcentre',$id)->get();
+        foreach($reservations as $r){
+            $r->delete();
+        }
+        $horraires = Horraire::where('idcentre',$id)->get() ;
+        foreach($horraires as $h){
+            $h->delete();
+        }
         return redirect()->back();
 
     }
@@ -255,4 +264,21 @@ class CentresController extends Controller
         return redirect("/admin/centres");
     }
     */
+    public function DropAllCentres(){
+            $centres = auth()->user()->professionel->centres;
+            //dd($centres);
+            foreach($centres as $centre){
+                $centre->delete();
+
+            }
+             return redirect()->back();
+    }
+    public function DropHorraire($id){
+
+        $h = Horraire::find($id);
+        $h->delete();
+
+        return redirect()->back();
+
+    }
 }

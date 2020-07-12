@@ -50,6 +50,8 @@
                                 </li>
                             @endif
                         @else
+                        
+                        @if ( auth()->user()->avatar != null )<img src="{{asset('uploads')}}/{{ auth()->user()->avatar }}" width="30" height="30" style="border-radius: 50%">@endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -91,7 +93,9 @@
                 <h1> Mes centre medicales </h1>
                 <div class="col-12 mt-3 mb-3">
                   <a class="btn btn-primary" href="{{ route('createCentre')}}">Ajouter un centre </a>
-          
+                @if (count($centres) > 1 )
+                  <a class="btn btn-danger" href="{{ route('DropAllCentres')}}">Supprimer cette groupe du centre </a>
+                @endif
                 </div>
                 <table class="table">
                     <thead>

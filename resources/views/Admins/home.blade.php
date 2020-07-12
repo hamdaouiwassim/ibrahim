@@ -50,6 +50,8 @@
                                 </li>
                             @endif
                         @else
+                        
+                        @if ( auth()->user()->avatar != null )<img src="{{asset('uploads')}}/{{ auth()->user()->avatar }}" width="30" height="30" style="border-radius: 50%">@endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -58,6 +60,9 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('admincentres')}}">
                                         Centres
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('users')}}">
+                                        Utilisateurs
                                     </a>
                                     <a class="dropdown-item" href="{{ route('adminreservations') }}">
                                         Reservations
@@ -97,13 +102,25 @@
         <div class="col-md-8">
             <div class="card" style="opacity:  .9">
                 <div class="card-header">Dashboard</div>
-
+               
+                
                 <div class="card-body">
+                    <div class="col-12">
+                        @if (auth()->user()->avatar != null )
+                        <img width="100" src="{{ asset('uploads') }}/{{ auth()->user()->avatar }}">
+                        @endif
+                        <form action="{{ route('ImageUpload') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" name="avatar" >
+                            <button class="btn btn-primary" type="submit">Changer l'image</button>
+                        </form>
+                    </div>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
+                    <hr />
 
                     Dashboard admins
                 </div>

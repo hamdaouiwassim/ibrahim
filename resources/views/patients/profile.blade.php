@@ -20,7 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body style="min-height:100vh;background-size:cover;background-image: url('{{ asset('images/admin1.jpg') }}')">
+<body style="min-height:100vh;background-size:cover;background-image: url('{{ asset('images/coverSearch.jpg') }}')">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -45,11 +45,15 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
-                                <li class="nav-item">
+                                <li class="nav-item ">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item mr-3">
+                                <a href="{{ route('home')}}" class="btn btn-primary"> Chercher Centre </a>
+                            </li>
+                            
                            @if ( auth()->user()->avatar != null )<img src="{{asset('uploads')}}/{{ auth()->user()->avatar }}" width="30" height="30" style="border-radius: 50%">@endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -57,30 +61,15 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('admincentres')}}">
-                                        Centres
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('users')}}">
-                                        Utilisateurs
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('adminreservations') }}">
-                                        Reservations
-                                        
-                                    </a>
-                                    
-                                    <a class="dropdown-item" href="{{ route('adminhistoriques') }}">
-                                        Historiques
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('adminprofessionels') }}">
-                                        Professionels
-                                    </a>
+                                    <a href="/profile" class="dropdown-item">profile</a>
+                                   
+                                    <a href="{{ route('patientsCentres') }}" class="dropdown-item">Centres</a>
+                                    <a href="{{ route('patientsReservations') }}" class="dropdown-item">Reservations</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                   
-                                  
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -93,55 +82,35 @@
             </div>
         </nav>
 
-        
-   
+     
 
-<div class="container pt-5">
+
+<div class="col-12"  >
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card p-3" style="opacity:  .9">
-   
-                <h1>  Centres Recements ajoutees</h1>
-              
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @php
-                      $i=1   
-                      @endphp
-                        @foreach($centres as $centre)
-                      <tr>
-                      <th scope="row">{{ $i }}</th>
-                        <td>{{ $centre->nom }}</td>
-                        <td>{{ $centre->description  }}</td>
-                        <td>
-                            <a href="{{ route('AccepterCentre', ['id' =>$centre->id]) }}" class="btn btn-primary">Accpter </a>
-                            <a href="{{ route('RefuserCentre',['id'=>$centre->id])}}" class="btn btn-danger">Refuser </a>
-                           
-                        </td>
-                      </tr>
-                      @php
-                      $i++   
-                      @endphp
-                      @endforeach
-                   
-                    </tbody>
-                  </table>
-
-
-
-               
+        <div class="col-md-12 pt-5">
+            
+            <div class="col-12">
+                @if (auth()->user()->avatar != null )
+                <img width="100" src="{{ asset('uploads') }}/{{ auth()->user()->avatar }}">
+                @endif
+                <form action="{{ route('ImageUpload') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="file" name="avatar" >
+                    <button class="btn btn-primary" type="submit">Changer l'image</button>
+                </form>
+            </div>
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <hr />
+                </div> 
             </div>
         </div>
     </div>
 </div>
-    </div>
+
+</div>
 </body>
 </html>

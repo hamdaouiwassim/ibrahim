@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -32,5 +33,24 @@ class HomeController extends Controller
             return view('Admins.home');
         }
         
+    }
+
+    public function ImageUpload(Request $request){
+
+
+        $file = $request->file('avatar');
+        $fileName = uniqid().'.'.$file->getClientOriginalExtension();
+      
+        //Move Uploaded File
+        $destinationPath = 'uploads';
+        $file->move($destinationPath,$fileName);
+        auth()->user()->avatar = $fileName;
+        auth()->user()->save();
+        return redirect()->back();
+
+    }
+    public function users(){
+        $users = User::where('roles','!=','Admin')->get();
+        return view('Admins.utilisateurs')->with('users',$users);
     }
 }

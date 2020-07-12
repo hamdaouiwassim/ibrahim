@@ -59,7 +59,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
+                                    <a href="/profile" class="dropdown-item">profile</a>
+                                   
                                     <a href="{{ route('patientsCentres') }}" class="dropdown-item">Centres</a>
                                     <a href="{{ route('patientsReservations') }}" class="dropdown-item">Reservations</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
